@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.browser = new System.Windows.Forms.WebBrowser();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.home = new System.Windows.Forms.ToolStripButton();
             this.back = new System.Windows.Forms.ToolStripButton();
@@ -39,14 +39,14 @@
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // webBrowser1
+            // browser
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(978, 544);
-            this.webBrowser1.TabIndex = 0;
+            this.browser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.browser.Location = new System.Drawing.Point(0, 0);
+            this.browser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.browser.Name = "browser";
+            this.browser.Size = new System.Drawing.Size(978, 544);
+            this.browser.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -71,6 +71,7 @@
             this.home.Name = "home";
             this.home.Size = new System.Drawing.Size(34, 28);
             this.home.Text = "Home";
+            this.home.Click += new System.EventHandler(this.home_Click);
             // 
             // back
             // 
@@ -78,8 +79,9 @@
             this.back.Image = ((System.Drawing.Image)(resources.GetObject("back.Image")));
             this.back.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(34, 33);
+            this.back.Size = new System.Drawing.Size(34, 28);
             this.back.Text = "Back";
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // forward
             // 
@@ -87,8 +89,9 @@
             this.forward.Image = ((System.Drawing.Image)(resources.GetObject("forward.Image")));
             this.forward.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.forward.Name = "forward";
-            this.forward.Size = new System.Drawing.Size(34, 33);
+            this.forward.Size = new System.Drawing.Size(34, 28);
             this.forward.Text = "Forward";
+            this.forward.Click += new System.EventHandler(this.forward_Click);
             // 
             // go
             // 
@@ -96,14 +99,16 @@
             this.go.Image = ((System.Drawing.Image)(resources.GetObject("go.Image")));
             this.go.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.go.Name = "go";
-            this.go.Size = new System.Drawing.Size(34, 33);
+            this.go.Size = new System.Drawing.Size(34, 28);
             this.go.Text = "Go";
+            this.go.Click += new System.EventHandler(this.go_Click);
             // 
             // urlInput
             // 
             this.urlInput.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.urlInput.Name = "urlInput";
-            this.urlInput.Size = new System.Drawing.Size(500, 38);
+            this.urlInput.Size = new System.Drawing.Size(500, 33);
+            this.urlInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlInput_KeyDown);
             // 
             // Form1
             // 
@@ -111,7 +116,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 544);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.browser);
             this.Name = "Form1";
             this.Text = "Form1";
             this.toolStrip1.ResumeLayout(false);
@@ -123,7 +128,7 @@
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.WebBrowser browser;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton home;
         private System.Windows.Forms.ToolStripButton back;
