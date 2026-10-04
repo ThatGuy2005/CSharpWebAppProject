@@ -13,6 +13,7 @@ using System.Windows.Forms.VisualStyles;
 
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace LabCSharp2
 {
@@ -21,6 +22,16 @@ namespace LabCSharp2
         public Form1()
         {
             InitializeComponent();
+            FileStream file = new FileStream("log.txt", FileMode.Append, FileAccess.Write);
+            TextWriterTraceListener listener = new TextWriterTraceListener(file);
+            Trace.Listeners.Add(listener);
+        }
+        private async Task logEvent(string message)
+        {
+            // I put a \n so that each log entry will have a
+            // blank line after it, making it easier to read
+            Trace.WriteLine($"{DateTime.Now}: {message}\n");
+            Trace.Flush();
         }
         private async Task<bool> CheckForBlockedWords()
         {
@@ -40,6 +51,9 @@ namespace LabCSharp2
         }
         private async void go_Click(object sender, EventArgs e)
         {
+            // Don't wait for the logging to finish before navigating,
+            // just log it in the background
+            Task.Run(() => logEvent($"Navigating to: {urlInput.Text}"));
             bool blocked = await CheckForBlockedWords();
             if (blocked)
             {
@@ -50,16 +64,25 @@ namespace LabCSharp2
 
         private void forward_Click(object sender, EventArgs e)
         {
-            browser.GoForward();
+            if (browser.CanGoForward)
+            {
+                Task.Run(() => logEvent($"Going forward"));
+                browser.GoForward();
+            }
         }
 
         private void back_Click(object sender, EventArgs e)
         {
-            browser.GoBack();
+            if (browser.CanGoBack)
+            {
+                Task.Run(() => logEvent($"Going back"));
+                browser.GoBack();
+            }
         }
 
         private void home_Click(object sender, EventArgs e)
         {
+            Task.Run(() => logEvent($"Going to home page"));
             browser.GoHome();
         }
 
@@ -67,6 +90,7 @@ namespace LabCSharp2
         {
             if(e.KeyCode == Keys.Enter)
             {
+                Task.Run(() => logEvent($"Navigating to: {urlInput.Text}"));
                 bool blocked = await CheckForBlockedWords();
                 if (blocked)
                 {
