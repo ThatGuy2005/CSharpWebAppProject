@@ -18,6 +18,15 @@ namespace LabCSharp2
 
         private void go_Click(object sender, EventArgs e)
         {
+            IEnumerable<string> blockedWordsMatched =
+                    from blocked in blockedWords
+                    where urlInput.Text.Contains(blocked)
+                    select blocked;
+            if (blockedWordsMatched.Any())
+            {
+                MessageBox.Show("This website is blocked.");
+                return;
+            }
             browser.Navigate(urlInput.Text);
         }
 
@@ -40,6 +49,15 @@ namespace LabCSharp2
         {
             if(e.KeyCode == Keys.Enter)
             {
+                IEnumerable<string> blockedWordsMatched =
+                    from blocked in blockedWords
+                    where urlInput.Text.Contains(blocked)
+                    select blocked;
+                if (blockedWordsMatched.Any())
+                {
+                    MessageBox.Show("This website is blocked.");
+                    return;
+                }
                 browser.Navigate(urlInput.Text);
                 // Gets rid of the "ding" sound when pressing enter
                 e.SuppressKeyPress = true;

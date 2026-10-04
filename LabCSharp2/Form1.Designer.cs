@@ -1,4 +1,6 @@
-﻿namespace LabCSharp2
+﻿using System.Collections.Generic;
+
+namespace LabCSharp2
 {
     partial class Form1
     {
@@ -135,6 +137,8 @@
         private System.Windows.Forms.ToolStripButton forward;
         private System.Windows.Forms.ToolStripButton go;
         private System.Windows.Forms.ToolStripTextBox urlInput;
+
+        private List<string> blockedWords = new List<string> { "linda", "Rust" };
     }
 }
 
