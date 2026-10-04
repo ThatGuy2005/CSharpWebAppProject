@@ -25,6 +25,10 @@ namespace LabCSharp2
             FileStream file = new FileStream("log.txt", FileMode.Append, FileAccess.Write);
             TextWriterTraceListener listener = new TextWriterTraceListener(file);
             Trace.Listeners.Add(listener);
+            foreach (string word in blockedWords)
+            {
+                blockedWordShow.Items.Add(word);
+            }
         }
         private async Task logEvent(string message)
         {
@@ -100,6 +104,29 @@ namespace LabCSharp2
                 // Gets rid of the "ding" sound when pressing enter
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void blockedWordAdder_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                string word = blockedWordAdder.Text.Trim();
+                IEnumerable<string> queryResult = from blocked in blockedWords
+                                                  where blocked == word
+                                                  select blocked;
+                if (queryResult.Any())
+                {
+                    MessageBox.Show("This word is already blocked.");
+                }
+                else
+                {
+                    blockedWords.Add(word);
+                    blockedWordShow.Items.Add(word);
+                    blockedWordAdder.Clear();
+                }
+                e.SuppressKeyPress = true;
+            }
+            
         }
     }
 }

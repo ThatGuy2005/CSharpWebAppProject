@@ -38,6 +38,9 @@ namespace LabCSharp2
             this.forward = new System.Windows.Forms.ToolStripButton();
             this.go = new System.Windows.Forms.ToolStripButton();
             this.urlInput = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.blockedWordAdder = new System.Windows.Forms.ToolStripTextBox();
+            this.blockedWordShow = new System.Windows.Forms.ToolStripComboBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +61,10 @@ namespace LabCSharp2
             this.back,
             this.forward,
             this.go,
-            this.urlInput});
+            this.urlInput,
+            this.toolStripLabel1,
+            this.blockedWordAdder,
+            this.blockedWordShow});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(978, 33);
@@ -109,8 +115,26 @@ namespace LabCSharp2
             // 
             this.urlInput.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.urlInput.Name = "urlInput";
-            this.urlInput.Size = new System.Drawing.Size(500, 33);
+            this.urlInput.Size = new System.Drawing.Size(300, 33);
             this.urlInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlInput_KeyDown);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(164, 28);
+            this.toolStripLabel1.Text = "Add blocked word:";
+            // 
+            // blockedWordAdder
+            // 
+            this.blockedWordAdder.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.blockedWordAdder.Name = "blockedWordAdder";
+            this.blockedWordAdder.Size = new System.Drawing.Size(100, 33);
+            this.blockedWordAdder.KeyDown += new System.Windows.Forms.KeyEventHandler(this.blockedWordAdder_KeyDown);
+            // 
+            // blockedWordShow
+            // 
+            this.blockedWordShow.Name = "blockedWordShow";
+            this.blockedWordShow.Size = new System.Drawing.Size(121, 33);
             // 
             // Form1
             // 
@@ -139,6 +163,9 @@ namespace LabCSharp2
         private System.Windows.Forms.ToolStripTextBox urlInput;
 
         private List<string> blockedWords = new List<string> { "linda", "Rust" };
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripTextBox blockedWordAdder;
+        private System.Windows.Forms.ToolStripComboBox blockedWordShow;
     }
 }
 
