@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlTypes;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace LabCSharp2
 {
@@ -15,16 +22,27 @@ namespace LabCSharp2
         {
             InitializeComponent();
         }
-
-        private void go_Click(object sender, EventArgs e)
+        private async Task<bool> CheckForBlockedWords()
         {
-            IEnumerable<string> blockedWordsMatched =
-                    from blocked in blockedWords
-                    where urlInput.Text.Contains(blocked)
-                    select blocked;
-            if (blockedWordsMatched.Any())
+            bool isBlocked = await Task.Run(() =>
+            {
+                IEnumerable<string> queryResult = from blocked in blockedWords
+                                                  where urlInput.Text.Contains(blocked)
+                                                  select blocked;
+                return queryResult.Any();
+            });
+            if (isBlocked)
             {
                 MessageBox.Show("This website is blocked.");
+                return true;
+            }
+            return false;
+        }
+        private async void go_Click(object sender, EventArgs e)
+        {
+            bool blocked = await CheckForBlockedWords();
+            if (blocked)
+            {
                 return;
             }
             browser.Navigate(urlInput.Text);
@@ -45,17 +63,13 @@ namespace LabCSharp2
             browser.GoHome();
         }
 
-        private void urlInput_KeyDown(object sender, KeyEventArgs e)
+        private async void urlInput_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
-                IEnumerable<string> blockedWordsMatched =
-                    from blocked in blockedWords
-                    where urlInput.Text.Contains(blocked)
-                    select blocked;
-                if (blockedWordsMatched.Any())
+                bool blocked = await CheckForBlockedWords();
+                if (blocked)
                 {
-                    MessageBox.Show("This website is blocked.");
                     return;
                 }
                 browser.Navigate(urlInput.Text);
