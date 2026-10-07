@@ -57,8 +57,9 @@ namespace LabCSharp2
                 // We won't add an empty string.
                 if (blockedWordInput.Text != "" && !isDuplicate)
                 {
-                    logEvent("New duplicated word entered!");
+                    logEvent("New blocked word entered!");
                     blockedWords.Add(word);
+                    blockedWordShower.Items.Add(word);
                 }
                 // Gets rid of the "ding" sound when pressing enter
                 e.SuppressKeyPress = true;
