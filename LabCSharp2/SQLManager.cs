@@ -68,5 +68,18 @@ namespace LabCSharp2
             }
             return words;
         }
+
+        public static void deleteBlockedWord(string word)
+        {
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM BlockedWords WHERE Word=@word";
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@word",word);
+                }
+            }
+        }
     }
 }
