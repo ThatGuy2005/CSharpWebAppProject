@@ -29,6 +29,8 @@ namespace LabCSharp2
             {
                 blockedWordShow.Items.Add(word);
             }
+            this.blockedWordManagerWindow = new Form2();
+            this.blockedWordManagerWindow.Hide();
         }
         private async Task logEvent(string message)
         {
@@ -127,6 +129,11 @@ namespace LabCSharp2
                 e.SuppressKeyPress = true;
             }
             
+        }
+
+        private void blockedWordManager_Click(object sender, EventArgs e)
+        {
+            this.blockedWordManagerWindow.Show();
         }
     }
 }

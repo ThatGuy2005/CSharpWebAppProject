@@ -41,6 +41,7 @@ namespace LabCSharp2
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.blockedWordAdder = new System.Windows.Forms.ToolStripTextBox();
             this.blockedWordShow = new System.Windows.Forms.ToolStripComboBox();
+            this.blockedWordManager = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,10 +65,11 @@ namespace LabCSharp2
             this.urlInput,
             this.toolStripLabel1,
             this.blockedWordAdder,
-            this.blockedWordShow});
+            this.blockedWordShow,
+            this.blockedWordManager});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(978, 33);
+            this.toolStrip1.Size = new System.Drawing.Size(978, 38);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -77,7 +79,7 @@ namespace LabCSharp2
             this.home.Image = ((System.Drawing.Image)(resources.GetObject("home.Image")));
             this.home.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.home.Name = "home";
-            this.home.Size = new System.Drawing.Size(34, 28);
+            this.home.Size = new System.Drawing.Size(34, 33);
             this.home.Text = "Home";
             this.home.Click += new System.EventHandler(this.home_Click);
             // 
@@ -87,7 +89,7 @@ namespace LabCSharp2
             this.back.Image = ((System.Drawing.Image)(resources.GetObject("back.Image")));
             this.back.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(34, 28);
+            this.back.Size = new System.Drawing.Size(34, 33);
             this.back.Text = "Back";
             this.back.Click += new System.EventHandler(this.back_Click);
             // 
@@ -97,7 +99,7 @@ namespace LabCSharp2
             this.forward.Image = ((System.Drawing.Image)(resources.GetObject("forward.Image")));
             this.forward.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.forward.Name = "forward";
-            this.forward.Size = new System.Drawing.Size(34, 28);
+            this.forward.Size = new System.Drawing.Size(34, 33);
             this.forward.Text = "Forward";
             this.forward.Click += new System.EventHandler(this.forward_Click);
             // 
@@ -107,7 +109,7 @@ namespace LabCSharp2
             this.go.Image = ((System.Drawing.Image)(resources.GetObject("go.Image")));
             this.go.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.go.Name = "go";
-            this.go.Size = new System.Drawing.Size(34, 28);
+            this.go.Size = new System.Drawing.Size(34, 33);
             this.go.Text = "Go";
             this.go.Click += new System.EventHandler(this.go_Click);
             // 
@@ -115,26 +117,36 @@ namespace LabCSharp2
             // 
             this.urlInput.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.urlInput.Name = "urlInput";
-            this.urlInput.Size = new System.Drawing.Size(300, 33);
+            this.urlInput.Size = new System.Drawing.Size(300, 38);
             this.urlInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.urlInput_KeyDown);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(164, 28);
+            this.toolStripLabel1.Size = new System.Drawing.Size(164, 33);
             this.toolStripLabel1.Text = "Add blocked word:";
             // 
             // blockedWordAdder
             // 
             this.blockedWordAdder.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.blockedWordAdder.Name = "blockedWordAdder";
-            this.blockedWordAdder.Size = new System.Drawing.Size(100, 33);
+            this.blockedWordAdder.Size = new System.Drawing.Size(100, 38);
             this.blockedWordAdder.KeyDown += new System.Windows.Forms.KeyEventHandler(this.blockedWordAdder_KeyDown);
             // 
             // blockedWordShow
             // 
             this.blockedWordShow.Name = "blockedWordShow";
-            this.blockedWordShow.Size = new System.Drawing.Size(121, 33);
+            this.blockedWordShow.Size = new System.Drawing.Size(121, 38);
+            // 
+            // blockedWordManager
+            // 
+            this.blockedWordManager.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.blockedWordManager.Image = ((System.Drawing.Image)(resources.GetObject("blockedWordManager.Image")));
+            this.blockedWordManager.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.blockedWordManager.Name = "blockedWordManager";
+            this.blockedWordManager.Size = new System.Drawing.Size(34, 33);
+            this.blockedWordManager.Text = "ManageBlockedWords";
+            this.blockedWordManager.Click += new System.EventHandler(this.blockedWordManager_Click);
             // 
             // Form1
             // 
@@ -166,6 +178,9 @@ namespace LabCSharp2
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox blockedWordAdder;
         private System.Windows.Forms.ToolStripComboBox blockedWordShow;
+        private System.Windows.Forms.ToolStripButton blockedWordManager;
+
+        private Form2 blockedWordManagerWindow;
     }
 }
 

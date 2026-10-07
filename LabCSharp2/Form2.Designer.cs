@@ -78,6 +78,7 @@
             this.quit.TabIndex = 4;
             this.quit.Text = "Back";
             this.quit.UseVisualStyleBackColor = true;
+            this.quit.Click += new System.EventHandler(this.quit_Click);
             // 
             // Form2
             // 

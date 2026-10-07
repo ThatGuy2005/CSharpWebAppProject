@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,50 @@ namespace LabCSharp2
 
         }
 
-        private void blockedWordInput_KeyDown(object sender, KeyEventArgs e)
+        // Check if the given word is already in the blocked list
+        private async Task<bool> isDuplicatedBlockedWords(string word)
         {
+            bool isBlocked = await Task.Run(() =>
+            {
+                IEnumerable<string> queryResult = from blocked in blockedWords
+                                                  select blocked;
+                
+                return queryResult.Contains<string>(word);
+            });
+            return isBlocked;
+        }
 
+        // If someone writes in the textbox and presses enter, then add a new blocked word.
+        private async void blockedWordInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string word = blockedWordInput.Text;
+                bool isDuplicate = await isDuplicatedBlockedWords(word);
+                // We won't add an empty string.
+                if (blockedWordInput.Text != "" && !isDuplicate)
+                {
+                    logEvent("New duplicated word entered!");
+                    blockedWords.Add(word);
+                }
+                // Gets rid of the "ding" sound when pressing enter
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private async Task logEvent(string message)
+        {
+            // I put a \n so that each log entry will have a
+            // blank line after it, making it easier to read
+            Trace.WriteLine($"{DateTime.Now}: {message}\n");
+            Trace.Flush();
+        }
+
+        private List<String> blockedWords;
+
+        private void quit_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }
