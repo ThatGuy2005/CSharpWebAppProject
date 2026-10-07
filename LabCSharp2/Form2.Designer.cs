@@ -118,7 +118,6 @@ namespace LabCSharp2
         private System.Windows.Forms.TextBox blockedWordInput;
         private System.Windows.Forms.ComboBox blockedWordShower;
         private System.Windows.Forms.Button quit;
-        private List<string> blockedWords = new List<string> { "linda", "Rust" };
         private System.Windows.Forms.Label label3;
     }
 }

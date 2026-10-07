@@ -39,7 +39,7 @@ namespace LabCSharp2
         {
             bool isBlocked = await Task.Run(() =>
             {
-                IEnumerable<string> queryResult = from blocked in blockedWordManagerWindow.getBlockedWords()
+                IEnumerable<string> queryResult = from blocked in SQLManager.GetBlockedWords()
                                                   where urlInput.Text.Contains(blocked)
                                                   select blocked;
                 return queryResult.Any();

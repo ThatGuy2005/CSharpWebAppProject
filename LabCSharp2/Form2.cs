@@ -17,18 +17,19 @@ namespace LabCSharp2
         public Form2()
         {
             InitializeComponent();
+
             FileStream file = new FileStream("log2.txt", FileMode.Append, FileAccess.Write);
             TextWriterTraceListener listener = new TextWriterTraceListener(file);
             Trace.Listeners.Add(listener);
-            foreach (string word in blockedWords)
+            SQLManager.InitDatabase();
+            List<string> blockedWordsSQL = SQLManager.GetBlockedWords();
+            foreach (string word in blockedWordsSQL)
             {
                 blockedWordShower.Items.Add(word);
+                
             }
         }
-        public List<string> getBlockedWords()
-        {
-            return this.blockedWords;
-        }
+        
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -39,7 +40,7 @@ namespace LabCSharp2
         {
             bool isBlocked = await Task.Run(() =>
             {
-                IEnumerable<string> queryResult = from blocked in blockedWords
+                IEnumerable<string> queryResult = from blocked in SQLManager.GetBlockedWords()
                                                   select blocked;
                 
                 return queryResult.Contains<string>(word);
@@ -58,7 +59,7 @@ namespace LabCSharp2
                 if (blockedWordInput.Text != "" && !isDuplicate)
                 {
                     logEvent("New blocked word entered!");
-                    blockedWords.Add(word);
+                    SQLManager.AddBlockedWord(word);
                     blockedWordShower.Items.Add(word);
                 }
                 // Gets rid of the "ding" sound when pressing enter
@@ -85,6 +86,7 @@ namespace LabCSharp2
             if (e.KeyCode == Keys.Delete)
             {
                 string word = blockedWordShower.Text;
+                SQLManager.
                 blockedWords.Remove(word);
                 blockedWordShower.Items.Remove(word);
             }
