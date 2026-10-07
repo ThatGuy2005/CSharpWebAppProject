@@ -86,8 +86,7 @@ namespace LabCSharp2
             if (e.KeyCode == Keys.Delete)
             {
                 string word = blockedWordShower.Text;
-                SQLManager.
-                blockedWords.Remove(word);
+                SQLManager.deleteBlockedWord(word);
                 blockedWordShower.Items.Remove(word);
             }
         }

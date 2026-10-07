@@ -13,14 +13,18 @@ namespace LabCSharp2
 
         public static void InitDatabase()
         {
-            using(var connection = new SqliteConnection(connectionString))
+            SQLitePCL.Batteries.Init();
+
+            using (var connection = new SqliteConnection(connectionString))
             {
                 // Open the connection, set the query and run it.
                 connection.Open();
+
                 string createTable = @"
                     CREATE TABLE IF NOT EXISTS BlockedWords (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Word TEXT UNIQUE NOT NULL)";
+
                 using (var command = new SqliteCommand(createTable, connection))
                 {
                     command.ExecuteNonQuery();
@@ -39,6 +43,7 @@ namespace LabCSharp2
                 using (var command = new SqliteCommand(insertCommand, connection))
                 {
                     command.Parameters.AddWithValue("@word", word);
+
                     command.ExecuteNonQuery();
                 }
             }
@@ -55,6 +60,7 @@ namespace LabCSharp2
 
                 // Create the command
                 using (var command = new SqliteCommand(selectCommand, connection))
+
                 // Execute the command to 
                 using (var reader = command.ExecuteReader())
                 {
@@ -74,7 +80,9 @@ namespace LabCSharp2
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
+
                 string query = "DELETE FROM BlockedWords WHERE Word=@word";
+
                 using (var command = new SqliteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@word",word);
