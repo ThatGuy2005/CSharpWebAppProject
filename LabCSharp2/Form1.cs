@@ -25,10 +25,6 @@ namespace LabCSharp2
             FileStream file = new FileStream("log.txt", FileMode.Append, FileAccess.Write);
             TextWriterTraceListener listener = new TextWriterTraceListener(file);
             Trace.Listeners.Add(listener);
-            foreach (string word in blockedWords)
-            {
-                blockedWordShow.Items.Add(word);
-            }
             this.blockedWordManagerWindow = new Form2();
             this.blockedWordManagerWindow.Hide();
         }
@@ -43,7 +39,7 @@ namespace LabCSharp2
         {
             bool isBlocked = await Task.Run(() =>
             {
-                IEnumerable<string> queryResult = from blocked in blockedWords
+                IEnumerable<string> queryResult = from blocked in blockedWordManagerWindow.getBlockedWords()
                                                   where urlInput.Text.Contains(blocked)
                                                   select blocked;
                 return queryResult.Any();
@@ -112,20 +108,6 @@ namespace LabCSharp2
         {
             if(e.KeyCode == Keys.Enter)
             {
-                string word = blockedWordAdder.Text.Trim();
-                IEnumerable<string> queryResult = from blocked in blockedWords
-                                                  where blocked == word
-                                                  select blocked;
-                if (queryResult.Any())
-                {
-                    MessageBox.Show("This word is already blocked.");
-                }
-                else
-                {
-                    blockedWords.Add(word);
-                    blockedWordShow.Items.Add(word);
-                    blockedWordAdder.Clear();
-                }
                 e.SuppressKeyPress = true;
             }
             

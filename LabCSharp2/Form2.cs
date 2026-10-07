@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,18 @@ namespace LabCSharp2
         public Form2()
         {
             InitializeComponent();
+            FileStream file = new FileStream("log2.txt", FileMode.Append, FileAccess.Write);
+            TextWriterTraceListener listener = new TextWriterTraceListener(file);
+            Trace.Listeners.Add(listener);
+            foreach (string word in blockedWords)
+            {
+                blockedWordShower.Items.Add(word);
+            }
         }
-
+        public List<string> getBlockedWords()
+        {
+            return this.blockedWords;
+        }
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -62,11 +73,20 @@ namespace LabCSharp2
             Trace.Flush();
         }
 
-        private List<String> blockedWords;
-
         private void quit_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        // Remove the selected word when delete is pressed
+        private void blockedWordShower_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                string word = blockedWordShower.Text;
+                blockedWords.Remove(word);
+                blockedWordShower.Items.Remove(word);
+            }
         }
     }
 }

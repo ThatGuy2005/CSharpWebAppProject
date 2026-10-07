@@ -1,4 +1,6 @@
-﻿namespace LabCSharp2
+﻿using System.Collections.Generic;
+
+namespace LabCSharp2
 {
     partial class Form2
     {
@@ -33,6 +35,7 @@
             this.blockedWordInput = new System.Windows.Forms.TextBox();
             this.blockedWordShower = new System.Windows.Forms.ComboBox();
             this.quit = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -69,6 +72,7 @@
             this.blockedWordShower.Name = "blockedWordShower";
             this.blockedWordShower.Size = new System.Drawing.Size(180, 28);
             this.blockedWordShower.TabIndex = 3;
+            this.blockedWordShower.KeyDown += new System.Windows.Forms.KeyEventHandler(this.blockedWordShower_KeyDown);
             // 
             // quit
             // 
@@ -80,11 +84,21 @@
             this.quit.UseVisualStyleBackColor = true;
             this.quit.Click += new System.EventHandler(this.quit_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(273, 251);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(297, 20);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Select a word and press DEL to delete it.";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.quit);
             this.Controls.Add(this.blockedWordShower);
             this.Controls.Add(this.blockedWordInput);
@@ -104,5 +118,7 @@
         private System.Windows.Forms.TextBox blockedWordInput;
         private System.Windows.Forms.ComboBox blockedWordShower;
         private System.Windows.Forms.Button quit;
+        private List<string> blockedWords = new List<string> { "linda", "Rust" };
+        private System.Windows.Forms.Label label3;
     }
 }
