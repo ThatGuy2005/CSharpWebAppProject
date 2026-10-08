@@ -55,6 +55,7 @@ namespace LabCSharp2
             {
                 // Open connection
                 connection.Open();
+
                 // Select all words, but not their ids
                 string selectCommand = "SELECT Word FROM BlockedWords";
 
@@ -86,6 +87,7 @@ namespace LabCSharp2
                 using (var command = new SqliteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@word",word);
+                    command.ExecuteNonQuery();
                 }
             }
         }
