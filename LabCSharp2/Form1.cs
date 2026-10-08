@@ -25,6 +25,7 @@ namespace LabCSharp2
             FileStream file = new FileStream("log.txt", FileMode.Append, FileAccess.Write);
             TextWriterTraceListener listener = new TextWriterTraceListener(file);
             Trace.Listeners.Add(listener);
+            browser.ScriptErrorsSuppressed = true;
             this.blockedWordManagerWindow = new Form2();
             this.blockedWordManagerWindow.Hide();
         }
@@ -39,6 +40,17 @@ namespace LabCSharp2
         {
             bool isBlocked = await Task.Run(() =>
             {
+                // The longer more unoptimal way
+                // List<String> blockeds = SQLManager.GetBlockedWords();
+                // List<String> blockedInURL = new List<String>();
+                // foreach(var blocked in blockeds)
+                // {
+                //     if (urlInput.Text.Contains(blocked))
+                //     {
+                //         blockedInURL.Add(blocked);
+                //     }
+                // }
+
                 IEnumerable<string> queryResult = from blocked in SQLManager.GetBlockedWords()
                                                   where urlInput.Text.Contains(blocked)
                                                   select blocked;
